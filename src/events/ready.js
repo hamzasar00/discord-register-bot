@@ -31,6 +31,20 @@ module.exports = async () => {
 			console.error('[SLASH] Commands could not be registered:', error.message);
 		}
 	}
+	else if (client.settings.SlashCommandsEnabled) {
+		try {
+			await client.application.commands.set(slashCommands.map(command => ({
+				name: command.name,
+				description: command.description,
+				options: command.options || [],
+			})));
+
+			console.log(`[SLASH] ${slashCommands.length} global commands registered`);
+		}
+		catch (error) {
+			console.error('[SLASH] Global commands could not be registered:', error.message);
+		}
+	}
 
 	// Status
 	const activityType = ActivityType[Activity.charAt(0).toUpperCase() + Activity.slice(1).toLowerCase()] || ActivityType.Watching;

@@ -14,7 +14,7 @@ module.exports = (client) => {
 		VoiceChannel: '',
 		Activity: 'WATCHING',
 		Status: 'dnd',
-		MongoURL: process.env.MONGO_URL || '',
+		SQLitePath: process.env.SQLITE_PATH || '',
 		Footer: 'SeonerVorteX',
 		DisableCooldownsForAdmins: true,
 		SlashCommandsEnabled: true,

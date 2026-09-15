@@ -116,7 +116,15 @@ client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
 
 	const definition = slashCommands.find(command => command.name === interaction.commandName);
-	if (!definition) return;
+	if (!definition) {
+		if (interaction.isRepliable()) {
+			await interaction.reply({
+				content: 'Bu slash komutu artık kullanılmıyor. Komut listesini yenileyip tekrar deneyin.',
+				ephemeral: true,
+			}).catch(error => console.error('[SLASH] Unknown command response failed:', error.message));
+		}
+		return;
+	}
 
 	try {
 		await interaction.deferReply();

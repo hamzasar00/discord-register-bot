@@ -1,17 +1,18 @@
-const { Schema, model } = require('mongoose');
+const createModel = require('../handlers/sqliteModel.js');
 
-const penals = Schema({
-	id: { type: Number, default: 0 },
-	userID: { type: String, default: '' },
-	guildID: { type: String, default: '' },
-	type: { type: String, default: '' },
-	active: { type: Boolean, default: true },
-	staffID: { type: String, default: '' },
-	reason: { type: String, default: '' },
-	temp: { type: Boolean, default: false },
-	date: { type: Number, default: Date.now },
-	finishDate: Number,
-	removed: { type: Boolean, default: false },
+module.exports = createModel({
+	table: 'penals',
+	fields: {
+		id: 0,
+		userID: '',
+		guildID: '',
+		type: '',
+		active: true,
+		staffID: '',
+		reason: '',
+		temp: false,
+		date: Date.now,
+		finishDate: undefined,
+		removed: false,
+	},
 });
-
-module.exports = model('penals', penals);

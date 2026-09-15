@@ -1,10 +1,11 @@
-const { Schema, model } = require('mongoose');
+const createModel = require('../handlers/sqliteModel.js');
 
-const reload = Schema({
-	type: { type: String, default: 'register' },
-	authorID: { type: String, default: '' },
-	channelID: { type: String, default: '' },
-	messageID: { type: String, default: '' },
+module.exports = createModel({
+	table: 'reload',
+	fields: {
+		type: 'register',
+		authorID: '',
+		channelID: '',
+		messageID: '',
+	},
 });
-
-module.exports = model('reload', reload);

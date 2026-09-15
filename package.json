@@ -24,10 +24,10 @@
   "homepage": "https://github.com/hamzasar00/discord-register-bot#readme",
   "dependencies": {
     "discord.js": "^14.22.1",
+    "better-sqlite3": "^11.10.0",
     "dotenv": "^16.6.1",
     "moment": "^2.29.4",
     "moment-duration-format": "^2.3.2",
-    "mongoose": "^8.19.1",
     "ms": "^2.1.3"
   },
   "devDependencies": {

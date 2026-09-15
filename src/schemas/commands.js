@@ -1,8 +1,9 @@
-const { Schema, model } = require('mongoose');
+const createModel = require('../handlers/sqliteModel.js');
 
-const commands = Schema({
-	guildID: { type: String, default: '' },
-	registerCommands: { type: Array, default: [] },
+module.exports = createModel({
+	table: 'commands',
+	fields: {
+		guildID: '',
+		registerCommands: [],
+	},
 });
-
-module.exports = model('commands', commands);

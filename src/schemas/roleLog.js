@@ -1,12 +1,13 @@
-const { Schema, model } = require('mongoose');
+const createModel = require('../handlers/sqliteModel.js');
 
-const roleLog = Schema({
-	type: { type: String, default: '' },
-	guildID: { type: String, default: '' },
-	staffID: { type: String, default: '' },
-	userID: { type: String, default: '' },
-	roleID: { type: String, default: '' },
-	date: { type: Number, default: Date.now },
+module.exports = createModel({
+	table: 'role_logs',
+	fields: {
+		type: '',
+		guildID: '',
+		staffID: '',
+		userID: '',
+		roleID: '',
+		date: Date.now,
+	},
 });
-
-module.exports = model('roleLog', roleLog);

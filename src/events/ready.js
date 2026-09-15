@@ -13,72 +13,73 @@ moment.locale('tr');
 
 module.exports = async () => {
 
-    console.log(`[BOT] Connected To ${client.user.tag}`);
+	console.log(`[BOT] Connected To ${client.user.tag}`);
 
-//Slash Commands
-    if (client.settings.SlashCommandsEnabled && guildID) {
-        try {
-            const guild = await client.guilds.fetch(guildID);
-            await guild.commands.set(slashCommands.map(command => ({
-                name: command.name,
-                description: command.description,
-                options: command.options || [],
-            })));
+	// Slash Commands
+	if (client.settings.SlashCommandsEnabled && guildID) {
+		try {
+			const guild = await client.guilds.fetch(guildID);
+			await guild.commands.set(slashCommands.map(command => ({
+				name: command.name,
+				description: command.description,
+				options: command.options || [],
+			})));
 
-            console.log(`[SLASH] ${slashCommands.length} guild command registered`);
-        } catch (error) {
-            console.error("[SLASH] Commands could not be registered:", error.message);
-        }
-    }
-    
-//Status
-    const activityType = ActivityType[Activity.charAt(0).toUpperCase() + Activity.slice(1).toLowerCase()] || ActivityType.Watching;
-    client.user.setPresence({ activities: [{ type: activityType, name: statusMessages.random() }], status: Status });
-    
-    setInterval(() => {
-    
-        client.user.setPresence({ activities: [{ type: activityType, name: statusMessages.random() }], status: Status });
-        console.log(`[STATUS] Status Has Been Updated`);
-    
-    }, 600000);
+			console.log(`[SLASH] ${slashCommands.length} guild command registered`);
+		}
+		catch (error) {
+			console.error('[SLASH] Commands could not be registered:', error.message);
+		}
+	}
 
-//Voice
-    if (VoiceChannel) {
-        console.log('[VOICE] VoiceChannel is configured, but automatic voice connection is disabled in this version.');
-    }
+	// Status
+	const activityType = ActivityType[Activity.charAt(0).toUpperCase() + Activity.slice(1).toLowerCase()] || ActivityType.Watching;
+	client.user.setPresence({ activities: [{ type: activityType, name: statusMessages.random() }], status: Status });
 
-//Reload
-    let data = await reload.findOne({ type: "register" });
+	setInterval(() => {
 
-    if(data) {
+		client.user.setPresence({ activities: [{ type: activityType, name: statusMessages.random() }], status: Status });
+		console.log('[STATUS] Status Has Been Updated');
 
-        client.channels.cache.get(data.channelID).messages.fetch(data.messageID).then(async msg => {
+	}, 600000);
 
-            console.log('[BOT] Connection Reloaded');
-            await msg.edit(`**Yeniden Başlatıldı** ${success ? success : ``}`);
-            await reload.findOneAndDelete({ type: "register" });
+	// Voice
+	if (VoiceChannel) {
+		console.log('[VOICE] VoiceChannel is configured, but automatic voice connection is disabled in this version.');
+	}
 
-        });
+	// Reload
+	const data = await reload.findOne({ type: 'register' });
 
-    };
+	if(data) {
 
-//Saving Commands
-    if(!guildID) return;
+		client.channels.cache.get(data.channelID).messages.fetch(data.messageID).then(async msg => {
 
-    let commandArray = new Array();
-    client.commands.forEach(async command => {
+			console.log('[BOT] Connection Reloaded');
+			await msg.edit(`**Yeniden Başlatıldı** ${success ? success : ''}`);
+			await reload.findOneAndDelete({ type: 'register' });
 
-        commandArray.push(Prefix+command.name);
-        if(command.aliases) command.aliases.forEach(alias => commandArray.push(Prefix+alias));
-            
-    });
+		});
 
-    await commands.findOneAndUpdate({ guildID: guildID }, { $set: { registerCommands: commandArray } }, { upsert: true });
-    console.log(`[BOT] Commands Saved!`);
+	}
+
+	// Saving Commands
+	if(!guildID) return;
+
+	const commandArray = new Array();
+	client.commands.forEach(async command => {
+
+		commandArray.push(Prefix + command.name);
+		if(command.aliases) command.aliases.forEach(alias => commandArray.push(Prefix + alias));
+
+	});
+
+	await commands.findOneAndUpdate({ guildID: guildID }, { $set: { registerCommands: commandArray } }, { upsert: true });
+	console.log('[BOT] Commands Saved!');
 
 };
 
 module.exports.conf = {
-    name: "Ready",
-    event: "ready"
+	name: 'Ready',
+	event: 'ready',
 };

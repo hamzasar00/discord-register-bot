@@ -10,14 +10,14 @@ Node.js botu.
 - Taglı üye kontrolü
 - Kayıt, isim, VIP ve kayıtsız geçmişi
 - Günlük, haftalık, aylık ve tüm zamanlar istatistikleri
-- MongoDB üzerinde kayıt geçmişi
+- SQLite dosyasında kayıt geçmişi
 - Slash komutları ve geriye dönük prefix komutları
 - Windows için kurulum ve başlatma dosyaları
 
 ## Gereksinimler
 
 - Node.js 18.20 veya daha yeni bir sürüm
-- MongoDB veritabanı
+- SQLite (kurulum sırasında otomatik oluşturulur)
 - Discord bot uygulaması
 - Bot davetinde `bot` ve `applications.commands` kapsamları
 - Sunucuda gerekli rol, kanal ve üye izinleri
@@ -28,16 +28,17 @@ Node.js botu.
 2. Windows kullanıyorsanız `kurulum.bat` dosyasını çalıştırın. Diğer
    sistemlerde `npm ci` komutunu çalıştırın.
 3. `.env.example` dosyasını `.env` adıyla kopyalayın.
-4. `.env` dosyasındaki `DISCORD_TOKEN`, `MONGO_URL` ve
-   `DISCORD_GUILD_ID` değerlerini doldurun.
+4. `.env` dosyasındaki `DISCORD_TOKEN`, `DISCORD_GUILD_ID` ve isteğe bağlı
+   `SQLITE_PATH` değerlerini doldurun.
 5. `src/configs/settings.js` dosyasındaki sunucu, rol ve kanal ID’lerini
    doldurun.
 6. Windows kullanıyorsanız `başlat.bat`, diğer sistemlerde `npm start`
    komutunu çalıştırın.
 
 `.env` dosyası Git tarafından izlenmez ve gizli bilgileri kaynak kodundan ayrı
-tutar. Token veya MongoDB bağlantı adresini kaynak koduna, README dosyasına ya
-da `.bat` dosyalarına yazmayın. Üretim ortamında `.env` yerine ortam
+tutar. Token bilgisini kaynak koduna, README dosyasına ya da `.bat` dosyalarına
+yazmayın. SQLite veritabanı varsayılan olarak `data/register-bot.sqlite`
+dosyasına yazılır. Üretim ortamında `.env` yerine ortam
 değişkenleri veya secret yönetimi de kullanabilirsiniz.
 
 ## Slash komutları
@@ -63,7 +64,7 @@ Ana ayarlar `src/configs/settings.js` dosyasındadır:
 - Kayıt ayarları: kayıt rolleri, yaş sınırları ve limitler
 - VIP, karantina ve kayıtsız ayarları
 
-Üretim ortamında token ve MongoDB adresini yalnızca ortam değişkenleri veya
+Üretim ortamında token ve SQLite dosya yolunu yalnızca ortam değişkenleri veya
 secret yönetimi üzerinden tanımlayın.
 
 ## Komut örnekleri

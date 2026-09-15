@@ -15,24 +15,20 @@ const { readdirSync } = require('fs');
 require('./src/configs/settings.js')(client);
 require('./src/handlers/compatibility.js');
 require('./src/handlers/functions.js')(client);
-const { Token, MongoURL } = client.settings;
+const { Token } = client.settings;
 
 if (!Token) {
     console.error('[BOT] DISCORD_TOKEN is missing. Set it in .env or the process environment.');
 }
 
-if (!MongoURL) {
-    console.error('[DATABASE] MONGO_URL is missing. Set it in .env or the process environment.');
-}
-
-if (!Token || !MongoURL) process.exit(1);
+if (!Token) process.exit(1);
 
 // Collections
 client.commands = new Collection();
 client.cooldowns = new Collection();
 
 // Handlers
-require('./src/handlers/mongoHandler.js');
+require('./src/handlers/sqliteHandler.js');
 require('./src/handlers/eventHandler.js');
 client.slashCommands = require('./src/handlers/slashCommandHandler.js');
 

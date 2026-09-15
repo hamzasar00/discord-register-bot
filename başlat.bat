@@ -49,21 +49,25 @@ if errorlevel 1 (
     )
 )
 
-if "%DISCORD_TOKEN%"=="" (
-    echo [HATA] DISCORD_TOKEN ortam degiskeni tanimli degil.
-    echo Bot tokenini Windows ortam degiskenlerine DISCORD_TOKEN adiyla ekleyin.
-    echo Tokeni bu dosyanin veya kaynak kodun icine yazmayin.
-    echo.
-    pause
-    exit /b 1
-)
+if exist ".env" (
+    echo [BILGI] .env dosyasi bulundu. Gizli ayarlar dotenv ile yuklenecek.
+) else (
+    if "%DISCORD_TOKEN%"=="" (
+        echo [HATA] DISCORD_TOKEN tanimli degil ve .env dosyasi bulunamadi.
+        echo .env.example dosyasini .env olarak kopyalayip degerleri doldurun.
+        echo Tokeni bu dosyanin veya kaynak kodun icine yazmayin.
+        echo.
+        pause
+        exit /b 1
+    )
 
-if "%MONGO_URL%"=="" (
-    echo [HATA] MONGO_URL ortam degiskeni tanimli degil.
-    echo MongoDB baglanti adresini Windows ortam degiskenlerine MONGO_URL adiyla ekleyin.
-    echo.
-    pause
-    exit /b 1
+    if "%MONGO_URL%"=="" (
+        echo [HATA] MONGO_URL tanimli degil ve .env dosyasi bulunamadi.
+        echo .env.example dosyasini .env olarak kopyalayip degerleri doldurun.
+        echo.
+        pause
+        exit /b 1
+    )
 )
 
 echo [BILGI] Bot baslatiliyor...

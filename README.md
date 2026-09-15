@@ -27,15 +27,17 @@ Node.js botu.
 1. Projeyi indirin ve proje klasörüne girin.
 2. Windows kullanıyorsanız `kurulum.bat` dosyasını çalıştırın. Diğer
    sistemlerde `npm ci` komutunu çalıştırın.
-3. `DISCORD_TOKEN` ortam değişkenine Discord bot tokenını ekleyin.
-4. `MONGO_URL` ortam değişkenine MongoDB bağlantı adresini ekleyin.
+3. `.env.example` dosyasını `.env` adıyla kopyalayın.
+4. `.env` dosyasındaki `DISCORD_TOKEN` ve `MONGO_URL` değerlerini doldurun.
 5. `src/configs/settings.js` dosyasındaki sunucu, rol ve kanal ID’lerini
    doldurun.
 6. Windows kullanıyorsanız `başlat.bat`, diğer sistemlerde `npm start`
    komutunu çalıştırın.
 
-Token veya MongoDB bağlantı adresini kaynak koduna, README dosyasına ya da
-`.bat` dosyalarına yazmayın.
+`.env` dosyası Git tarafından izlenmez ve gizli bilgileri kaynak kodundan ayrı
+tutar. Token veya MongoDB bağlantı adresini kaynak koduna, README dosyasına ya
+da `.bat` dosyalarına yazmayın. Üretim ortamında `.env` yerine ortam
+değişkenleri veya secret yönetimi de kullanabilirsiniz.
 
 ## Slash komutları
 

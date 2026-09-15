@@ -55,6 +55,15 @@ if errorlevel 1 (
     exit /b 1
 )
 
+if not exist ".env" (
+    if exist ".env.example" (
+        copy /Y ".env.example" ".env" >nul
+        echo.
+        echo [BILGI] .env dosyasi olusturuldu.
+        echo Discord tokenini ve MongoDB adresini .env dosyasinda doldurun.
+    )
+)
+
 echo.
 echo [BASARILI] Kurulum tamamlandi.
 echo Botu baslatmak icin başlat.bat dosyasini calistirin.

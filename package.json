@@ -24,6 +24,7 @@
   "homepage": "https://github.com/hamzasar00/discord-register-bot#readme",
   "dependencies": {
     "discord.js": "^14.22.1",
+    "dotenv": "^16.6.1",
     "moment": "^2.29.4",
     "moment-duration-format": "^2.3.2",
     "mongoose": "^8.19.1",

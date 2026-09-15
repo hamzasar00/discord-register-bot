@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const { Client, Collection, GatewayIntentBits, Partials } = require('discord.js');
 const client = (global.client = new Client({
     intents: [
@@ -13,7 +15,17 @@ const { readdirSync } = require('fs');
 require('./src/configs/settings.js')(client);
 require('./src/handlers/compatibility.js');
 require('./src/handlers/functions.js')(client);
-const { Token } = client.settings;
+const { Token, MongoURL } = client.settings;
+
+if (!Token) {
+    console.error('[BOT] DISCORD_TOKEN is missing. Set it in .env or the process environment.');
+}
+
+if (!MongoURL) {
+    console.error('[DATABASE] MONGO_URL is missing. Set it in .env or the process environment.');
+}
+
+if (!Token || !MongoURL) process.exit(1);
 
 // Collections
 client.commands = new Collection();
@@ -35,12 +47,7 @@ readdirSync('./src/commands').filter(dir => {
 });
 
 // Connecting To Client
-if (!Token) {
-    console.error('[BOT] DISCORD_TOKEN is missing');
+client.login(Token).then(() => console.log('[BOT] Connection Started')).catch((error) => {
+    console.error('[BOT] Failed To Start Connection:', error.message);
     process.exit(1);
-} else {
-    client.login(Token).then(() => console.log('[BOT] Connection Started')).catch((error) => {
-        console.error('[BOT] Failed To Start Connection:', error.message);
-        process.exit(1);
-    });
-}
+});

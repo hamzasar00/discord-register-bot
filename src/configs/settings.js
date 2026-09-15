@@ -48,7 +48,7 @@ module.exports = (client) => {
 	client.guildSettings = {
 
 		// /General
-		guildID: '',
+		guildID: process.env.DISCORD_GUILD_ID || '',
 		guildTags: [],
 		guildDiscriminator: '',
 		guildRulesChannel: '',

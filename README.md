@@ -28,7 +28,8 @@ Node.js botu.
 2. Windows kullanıyorsanız `kurulum.bat` dosyasını çalıştırın. Diğer
    sistemlerde `npm ci` komutunu çalıştırın.
 3. `.env.example` dosyasını `.env` adıyla kopyalayın.
-4. `.env` dosyasındaki `DISCORD_TOKEN` ve `MONGO_URL` değerlerini doldurun.
+4. `.env` dosyasındaki `DISCORD_TOKEN`, `MONGO_URL` ve
+   `DISCORD_GUILD_ID` değerlerini doldurun.
 5. `src/configs/settings.js` dosyasındaki sunucu, rol ve kanal ID’lerini
    doldurun.
 6. Windows kullanıyorsanız `başlat.bat`, diğer sistemlerde `npm start`
@@ -47,6 +48,11 @@ davet edilmiş olması gerekir.
 
 Slash komutlarını kapatmak için `src/configs/settings.js` içindeki
 `SlashCommandsEnabled` değerini `false` yapabilirsiniz.
+
+`DISCORD_GUILD_ID`, botun kullanılacağı Discord sunucusunun kimliğidir.
+Discord geliştirici modu açıkken sunucu adına sağ tıklayıp sunucu kimliğini
+kopyalayabilirsiniz. Bu değer doldurulursa slash komutları doğrudan sunucuya
+kaydedilir ve güncellemeler daha hızlı görünür.
 
 ## Ayarlar
 
